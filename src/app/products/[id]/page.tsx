@@ -152,6 +152,20 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
               <p className="text-3xl font-bold text-blue-600 mb-4">¥{product.price.toLocaleString()}</p>
               <p className="text-sm text-gray-500 mb-4">{product.prefecture}</p>
+              
+              {/* 購入ボタン */}
+              {product.isAffiliate ? (
+                <Link 
+                  href="#" 
+                  className="block w-full bg-orange-600 text-white text-center py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors font-medium mb-6"
+                >
+                  楽天市場で購入
+                </Link>
+              ) : (
+                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium mb-6">
+                  カートへ追加
+                </button>
+              )}
             </div>
 
             {/* 商品説明 */}
@@ -183,22 +197,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* 購入ボタン */}
-            <div className="pt-4">
-              {product.isAffiliate ? (
-                <Link 
-                  href="#" 
-                  className="block w-full bg-orange-600 text-white text-center py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors font-medium"
-                >
-                  楽天市場で購入
-                </Link>
-              ) : (
-                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                  カートへ追加
-                </button>
-              )}
             </div>
           </div>
         </div>

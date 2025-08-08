@@ -121,29 +121,33 @@ export default function Home() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-semibold mb-8 text-gray-900">おすすめの商品</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {RECOMMENDED_PRODUCTS.map((product) => (
-              <div key={product.id} className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-                <div className="relative h-32 sm:h-48 bg-gray-100 rounded-t-lg">
+              <Link 
+                key={product.id} 
+                href={`/products/${product.id}`}
+                className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow"
+              >
+                <div className="relative h-48 bg-gray-100 rounded-t-lg">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-gray-400 text-xs sm:text-sm text-center px-2">{product.name}</span>
+                    <span className="text-gray-400 text-sm">{product.name}</span>
                   </div>
                 </div>
-                <div className="p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1">{product.prefecture}</p>
-                  <h3 className="font-medium mb-2 text-gray-900 text-sm sm:text-base">{product.name}</h3>
-                  <p className="text-base sm:text-lg font-semibold text-gray-900 mb-3">¥{product.price.toLocaleString()}</p>
+                <div className="p-4">
+                  <p className="text-sm text-gray-500 mb-1">{product.prefecture}</p>
+                  <h3 className="font-medium mb-2 text-gray-900">{product.name}</h3>
+                  <p className="text-lg font-semibold text-gray-900 mb-3">¥{product.price.toLocaleString()}</p>
                   {product.isAffiliate ? (
-                    <Link href="#" className="block w-full text-center text-blue-600 hover:text-blue-800 text-xs sm:text-sm font-medium">
+                    <span className="block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium">
                       詳細を見る →
-                    </Link>
+                    </span>
                   ) : (
-                    <button className="w-full bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium">
+                    <span className="block w-full text-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
                       カートに入れる
-                    </button>
+                    </span>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="text-center mt-8">
