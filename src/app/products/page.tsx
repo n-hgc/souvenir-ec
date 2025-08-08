@@ -117,8 +117,6 @@ export default function ProductsPage() {
     ? PRODUCTS 
     : PRODUCTS.filter(product => product.region === selectedRegion);
 
-  const selectedRegionName = REGIONS.find(r => r.id === selectedRegion)?.name || 'すべて';
-
   return (
     <main className="min-h-screen bg-white">
       {/* ヘッダー */}

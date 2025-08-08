@@ -107,8 +107,9 @@ export function generateStaticParams() {
   ];
 }
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const productId = parseInt(params.id);
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const productId = parseInt(id);
   const product = PRODUCT_DETAILS[productId as keyof typeof PRODUCT_DETAILS];
 
   if (!product) {
