@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import ImageGallery from './ImageGallery';
+import ReviewSection from '../../components/ReviewSection';
+import ProductRatingClient from '../../components/ProductRatingClient';
 
 // 商品詳細データ
 const PRODUCT_DETAILS = {
@@ -112,6 +114,37 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const productId = parseInt(id);
   const product = PRODUCT_DETAILS[productId as keyof typeof PRODUCT_DETAILS];
 
+  // サンプルレビューデータ（実際の実装ではAPIから取得）
+  const sampleReviews = [
+    {
+      id: '1',
+      productId: 1,
+      joyLevel: 5,
+      relationship: '家族' as const,
+      comment: '母がとても喜んでくれました！北海道旅行の思い出と一緒に贈ったので、特別感があって良かったです。',
+      createdAt: '2024-01-15',
+      userName: '田中さん'
+    },
+    {
+      id: '2',
+      productId: 1,
+      joyLevel: 4,
+      relationship: '友人' as const,
+      comment: '友達の誕生日に贈りました。白い恋人は定番だけど、やっぱり喜ばれますね。',
+      createdAt: '2024-01-10',
+      userName: '佐藤さん'
+    },
+    {
+      id: '3',
+      productId: 1,
+      joyLevel: 5,
+      relationship: '恋人' as const,
+      comment: '彼女が大興奮でした！北海道の思い出と一緒に贈ったので、特別な意味があったみたいです。',
+      createdAt: '2024-01-08',
+      userName: '山田さん'
+    }
+  ];
+
   if (!product) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -153,6 +186,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
               <p className="text-3xl font-bold text-blue-600 mb-4">¥{product.price.toLocaleString()}</p>
               <p className="text-sm text-gray-500 mb-4">{product.prefecture}</p>
+              
+              {/* 商品評価 */}
+              <ProductRatingClient 
+                reviews={sampleReviews} 
+                productName={product.name}
+              />
               
               {/* 購入ボタン */}
               {product.isAffiliate ? (
@@ -229,6 +268,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           </section>
         )}
+
+        {/* レビューセクション */}
+        <div id="reviews-section">
+          <ReviewSection productId={product.id} productName={product.name} />
+        </div>
       </div>
     </main>
   );

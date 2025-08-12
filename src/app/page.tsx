@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PrefectureFilter from './components/PrefectureFilter';
 
 // ダミーデータ
 const RECOMMENDED_PRODUCTS = [
@@ -113,6 +114,14 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 都道府県フィルター */}
+      <section className="py-8 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-xl font-semibold mb-6 text-gray-900">都道府県で絞り込み</h2>
+          <PrefectureFilter />
         </div>
       </section>
 
