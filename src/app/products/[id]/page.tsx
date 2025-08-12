@@ -190,7 +190,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {/* 商品評価 */}
               <ProductRatingClient 
                 reviews={sampleReviews} 
-                productName={product.name}
               />
               
               {/* 購入ボタン */}

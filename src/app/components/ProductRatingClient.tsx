@@ -4,10 +4,9 @@ import { Review } from './ReviewSection';
 
 interface ProductRatingClientProps {
   reviews: Review[];
-  productName: string;
 }
 
-export default function ProductRatingClient({ reviews, productName }: ProductRatingClientProps) {
+export default function ProductRatingClient({ reviews }: ProductRatingClientProps) {
   const handleViewReviews = () => {
     document.getElementById('reviews-section')?.scrollIntoView({ behavior: 'smooth' });
   };

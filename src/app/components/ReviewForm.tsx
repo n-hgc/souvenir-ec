@@ -8,7 +8,7 @@ interface ReviewFormProps {
   onSubmit: (review: Omit<Review, 'id' | 'createdAt' | 'userName'>) => void;
 }
 
-export default function ReviewForm({ onSubmit }: ReviewFormProps) {
+export default function ReviewForm({ productId, onSubmit }: ReviewFormProps) {
   const [joyLevel, setJoyLevel] = useState(0);
   const [relationship, setRelationship] = useState<'恋人' | '家族' | '友人' | '職場の同僚'>('家族');
   const [comment, setComment] = useState('');
@@ -19,7 +19,7 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
     if (joyLevel === 0) return;
 
     onSubmit({
-      productId,
+      productId: productId,
       joyLevel,
       relationship,
       comment: comment.trim() || undefined

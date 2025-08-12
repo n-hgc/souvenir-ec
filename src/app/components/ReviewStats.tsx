@@ -42,23 +42,6 @@ export default function ReviewStats({ reviews }: ReviewStatsProps) {
     );
   };
 
-  const getJoyLevelText = (level: number) => {
-    switch (level) {
-      case 5:
-        return '大変喜ばれる';
-      case 4:
-        return '喜ばれる';
-      case 3:
-        return '普通';
-      case 2:
-        return 'あまり喜ばれない';
-      case 1:
-        return '喜ばれない';
-      default:
-        return '';
-    }
-  };
-
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">体験談統計</h3>
