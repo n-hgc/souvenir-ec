@@ -2,8 +2,14 @@
 
 import { Review } from './ReviewSection';
 
+// 簡略化されたレビューデータの型定義
+interface SimpleReview {
+  joyLevel: number;
+  relationship: string;
+}
+
 interface ProductCardRatingProps {
-  reviews: Review[];
+  reviews: Review[] | SimpleReview[];
   compact?: boolean;
 }
 

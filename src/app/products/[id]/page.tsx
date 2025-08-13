@@ -2,102 +2,8 @@ import Link from 'next/link';
 import ImageGallery from './ImageGallery';
 import ReviewSection from '../../components/ReviewSection';
 import ProductRatingClient from '../../components/ProductRatingClient';
-
-// 商品詳細データ
-const PRODUCT_DETAILS = {
-  1: {
-    id: 1,
-    name: "白い恋人",
-    price: 800,
-    prefecture: "北海道",
-    region: "hokkaido",
-    description: "北海道を代表するお菓子。石屋製菓が製造する、白いチョコレートをサンドしたクッキーです。北海道の厳しい冬の風物詩として、多くの観光客に愛されています。",
-    images: [
-      "/dummy/product1-1.jpg",
-      "/dummy/product1-2.jpg", 
-      "/dummy/product1-3.jpg",
-      "/dummy/product1-4.jpg"
-    ],
-    expiryDate: "製造日から6ヶ月",
-    weight: "12枚入り",
-    allergens: ["小麦", "乳", "卵"],
-    isAffiliate: false,
-  },
-  2: {
-    id: 2,
-    name: "東京ばな奈",
-    price: 1200,
-    prefecture: "東京都",
-    region: "kanto",
-    description: "東京のお土産の定番。東京スカイツリーの限定デザインで、東京観光の思い出にぴったりです。バナナの風味とチョコレートの組み合わせが絶妙です。",
-    images: [
-      "/dummy/product2-1.jpg",
-      "/dummy/product2-2.jpg",
-      "/dummy/product2-3.jpg"
-    ],
-    expiryDate: "製造日から3ヶ月",
-    weight: "8個入り",
-    allergens: ["小麦", "乳", "卵"],
-    isAffiliate: true,
-  },
-  3: {
-    id: 3,
-    name: "京都抹茶クッキー",
-    price: 1500,
-    prefecture: "京都府",
-    region: "kansai",
-    description: "京都の抹茶を使用した上品なクッキー。宇治の抹茶の風味を活かした、京都らしいお土産です。伝統的な製法で作られ、抹茶の香りと甘さのバランスが絶妙です。",
-    images: [
-      "/dummy/product3-1.jpg",
-      "/dummy/product3-2.jpg"
-    ],
-    expiryDate: "製造日から4ヶ月",
-    weight: "10枚入り",
-    allergens: ["小麦", "乳"],
-    isAffiliate: false,
-  },
-  4: {
-    id: 4,
-    name: "博多明太子",
-    price: 2000,
-    prefecture: "福岡県",
-    region: "kyushu",
-    description: "博多の名物明太子。福岡の老舗明太子店が製造する、本格的な明太子です。辛さと旨味のバランスが良く、ご飯のお供に最適です。",
-    images: [
-      "/dummy/product4-1.jpg",
-      "/dummy/product4-2.jpg",
-      "/dummy/product4-3.jpg"
-    ],
-    expiryDate: "製造日から2週間（冷蔵）",
-    weight: "100g",
-    allergens: ["魚卵"],
-    isAffiliate: true,
-  }
-};
-
-// 同一地域の他商品
-const RELATED_PRODUCTS = {
-  hokkaido: [
-    { id: 5, name: "札幌ラーメン", price: 1800, image: "/dummy/related1.jpg" },
-    { id: 6, name: "北海道牛乳", price: 500, image: "/dummy/related2.jpg" },
-    { id: 7, name: "小樽ガラス", price: 3000, image: "/dummy/related3.jpg" },
-  ],
-  kanto: [
-    { id: 8, name: "横浜中華街点心", price: 2500, image: "/dummy/related4.jpg" },
-    { id: 9, name: "鎌倉和菓子", price: 1200, image: "/dummy/related5.jpg" },
-    { id: 10, name: "箱根温泉饅頭", price: 800, image: "/dummy/related6.jpg" },
-  ],
-  kansai: [
-    { id: 11, name: "大阪たこ焼き", price: 1500, image: "/dummy/related7.jpg" },
-    { id: 12, name: "神戸ビーフ", price: 5000, image: "/dummy/related8.jpg" },
-    { id: 13, name: "奈良鹿せんべい", price: 600, image: "/dummy/related9.jpg" },
-  ],
-  kyushu: [
-    { id: 14, name: "長崎カステラ", price: 1800, image: "/dummy/related10.jpg" },
-    { id: 15, name: "熊本いきなり団子", price: 900, image: "/dummy/related11.jpg" },
-    { id: 16, name: "宮崎マンゴー", price: 4000, image: "/dummy/related12.jpg" },
-  ]
-};
+import ProductCardRating from '../../components/ProductCardRating';
+import { getProductById, getRelatedProducts } from '../../../data/products';
 
 // 静的パラメータを生成
 export function generateStaticParams() {
@@ -112,38 +18,7 @@ export function generateStaticParams() {
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const productId = parseInt(id);
-  const product = PRODUCT_DETAILS[productId as keyof typeof PRODUCT_DETAILS];
-
-  // サンプルレビューデータ（実際の実装ではAPIから取得）
-  const sampleReviews = [
-    {
-      id: '1',
-      productId: 1,
-      joyLevel: 5,
-      relationship: '家族' as const,
-      comment: '母がとても喜んでくれました！北海道旅行の思い出と一緒に贈ったので、特別感があって良かったです。',
-      createdAt: '2024-01-15',
-      userName: '田中さん'
-    },
-    {
-      id: '2',
-      productId: 1,
-      joyLevel: 4,
-      relationship: '友人' as const,
-      comment: '友達の誕生日に贈りました。白い恋人は定番だけど、やっぱり喜ばれますね。',
-      createdAt: '2024-01-10',
-      userName: '佐藤さん'
-    },
-    {
-      id: '3',
-      productId: 1,
-      joyLevel: 5,
-      relationship: '恋人' as const,
-      comment: '彼女が大興奮でした！北海道の思い出と一緒に贈ったので、特別な意味があったみたいです。',
-      createdAt: '2024-01-08',
-      userName: '山田さん'
-    }
-  ];
+  const product = getProductById(productId);
 
   if (!product) {
     return (
@@ -158,7 +33,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     );
   }
 
-  const relatedProducts = RELATED_PRODUCTS[product.region as keyof typeof RELATED_PRODUCTS] || [];
+  const relatedProducts = getRelatedProducts(product.region);
 
   return (
     <main className="min-h-screen bg-white">
@@ -177,7 +52,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 左側：商品画像 */}
           <div className="space-y-4">
-            <ImageGallery images={product.images} productName={product.name} />
+            <ImageGallery images={product.images || [product.image]} productName={product.name} />
           </div>
 
           {/* 右側：商品情報 */}
@@ -189,7 +64,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               
               {/* 商品評価 */}
               <ProductRatingClient 
-                reviews={sampleReviews} 
+                reviews={product.reviews} 
               />
               
               {/* 購入ボタン */}
@@ -260,7 +135,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   </div>
                   <div className="p-3">
                     <h3 className="font-medium text-gray-900 text-sm mb-1">{relatedProduct.name}</h3>
-                    <p className="text-sm font-semibold text-gray-900">¥{relatedProduct.price.toLocaleString()}</p>
+                    <p className="text-sm font-semibold text-gray-900 mb-2">¥{relatedProduct.price.toLocaleString()}</p>
+                    
+                    {/* レビュー表示 */}
+                    <ProductCardRating reviews={relatedProduct.reviews} compact={true} />
                   </div>
                 </Link>
               ))}

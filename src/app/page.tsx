@@ -1,56 +1,6 @@
 import Link from 'next/link';
-import PrefectureFilter from './components/PrefectureFilter';
-
-// ダミーデータ
-const RECOMMENDED_PRODUCTS = [
-  {
-    id: 1,
-    name: "東京ばな奈",
-    price: 1200,
-    prefecture: "東京都",
-    image: "/dummy/product1.jpg",
-    isAffiliate: false,
-  },
-  {
-    id: 2,
-    name: "白い恋人",
-    price: 800,
-    prefecture: "北海道",
-    image: "/dummy/product2.jpg",
-    isAffiliate: true,
-  },
-  {
-    id: 3,
-    name: "京都抹茶クッキー",
-    price: 1500,
-    prefecture: "京都府",
-    image: "/dummy/product3.jpg",
-    isAffiliate: false,
-  },
-  {
-    id: 4,
-    name: "博多明太子",
-    price: 2000,
-    prefecture: "福岡県",
-    image: "/dummy/product4.jpg",
-    isAffiliate: true,
-  },
-];
-
-const ARTICLES = [
-  {
-    id: 1,
-    title: "人気の関東土産ランキング2024",
-    image: "/dummy/article1.jpg",
-    excerpt: "東京、神奈川、千葉など関東の人気土産を紹介！",
-  },
-  {
-    id: 2,
-    title: "職場で喜ばれる手土産特集",
-    image: "/dummy/article2.jpg",
-    excerpt: "同僚や上司へのお土産選びのコツ",
-  },
-];
+import ProductCardRating from './components/ProductCardRating';
+import { RECOMMENDED_PRODUCTS, ARTICLES } from '../data/products';
 
 export default function Home() {
   return (
@@ -117,14 +67,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 都道府県フィルター */}
-      <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl font-semibold mb-6 text-gray-900">都道府県で絞り込み</h2>
-          <PrefectureFilter />
-        </div>
-      </section>
-
       {/* おすすめ商品 */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -145,6 +87,10 @@ export default function Home() {
                   <p className="text-sm text-gray-500 mb-1">{product.prefecture}</p>
                   <h3 className="font-medium mb-2 text-gray-900">{product.name}</h3>
                   <p className="text-lg font-semibold text-gray-900 mb-3">¥{product.price.toLocaleString()}</p>
+                  
+                  {/* レビュー表示 */}
+                  <ProductCardRating reviews={product.reviews} />
+                  
                   {product.isAffiliate ? (
                     <span className="block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium">
                       詳細を見る →
